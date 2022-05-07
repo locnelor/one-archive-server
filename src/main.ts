@@ -16,7 +16,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //跨域
   app.enableCors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:8080",
     credentials: true
   })
   //全局验证管道
@@ -42,6 +42,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options)
   // 设置 swagger 网址
   SwaggerModule.setup('docs', app, document);
-  await app.listen(5050);
+  await app.listen(9095);
 }
 bootstrap();

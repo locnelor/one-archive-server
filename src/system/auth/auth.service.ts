@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
+import { Account } from "../tables/entity/account.entity";
 import { CryptoUtilService } from "../util/crypto.util.service";
 import { secret } from "./secret";
 
@@ -10,9 +11,9 @@ export class AuthService {
         private readonly cryptoUtil: CryptoUtilService
     ) { }
 
-    public getToken(entity: any) {
+    public getToken(entity: Account) {
         const crypto = this.cryptoUtil.cryptoPassword(entity.user_password);
-        const uid = entity.user_key;
+        const uid = entity.uid;
         return {
             token: this.jwtServer.sign({
                 uid,

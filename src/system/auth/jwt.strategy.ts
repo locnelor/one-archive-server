@@ -5,11 +5,13 @@ import { IncomingMessage } from 'http';
 import { NotFound } from 'src/utils/http';
 import { CryptoUtilService } from '../util/crypto.util.service';
 import { secret } from './secret';
+import { AccountService } from '../tables/service/account.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(
         private readonly cryptoUtil: CryptoUtilService,
+        private readonly accountService: AccountService
     ) {
         super({
             jwtFromRequest: (req: IncomingMessage) => {
@@ -26,7 +28,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
     async validate({ uid, crypto }) {
-        
-        return uid;
+        const account = await this.accountService.account.findOne(uid);
+        if (!account) return false;
+        if (crypto != this.cryptoUtil.cryptoPassword(account.user_password)) return false;
+        return account;
     }
 }
