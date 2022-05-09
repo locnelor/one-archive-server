@@ -10,15 +10,16 @@ import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
 import * as svgCaptcha from "svg-captcha"
 import { GetCode } from "./dto/getCode.dto";
-import { sendEmail } from "src/utils/email";
 import { RegisterDto } from "./dto/RegisterDto";
+import { EmailUtilService } from "../util/email.util.service";
 
 @Controller("api/auth")
 @ApiTags("用户登录")
 export class AuthController {
     constructor(
         private readonly authServer: AuthService,
-        private readonly accountService: AccountService
+        private readonly accountService: AccountService,
+        private readonly emailUtil: EmailUtilService
     ) { }
 
     @Post("login")
@@ -102,7 +103,7 @@ export class AuthController {
         const code = (new Array(4).fill(0).join("") + Math.floor(Math.random() * 10000)).slice(-4)
         req.session.email = body.email;
         req.session.regCode = code;
-        return await sendEmail(body.email, "注册", "验证码为:" + code)
+        return await this.emailUtil.sendEmail(body.email, "注册", "验证码为:" + code)
     }
 
 }
