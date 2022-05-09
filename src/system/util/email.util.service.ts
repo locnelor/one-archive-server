@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import nodemailer from 'nodemailer'
+import * as nodemailer from 'nodemailer'
 
 @Injectable()
 export class EmailUtilService {
@@ -8,14 +8,14 @@ export class EmailUtilService {
         port: 465,//上文获取的port
         secure: true,//上文获取的secure
         auth: {
-            user: '1295786542@qq.com', // 发送方的邮箱，可以选择你自己的qq邮箱
-            pass: 'xoilbezkqandhhga' // 上文获取的stmp授权码
+            user: process.env.email, // 发送方的邮箱，可以选择你自己的qq邮箱
+            pass: process.env.pass // 上文获取的stmp授权码
         }
     });
     public sendEmail(to: string, subject: string, html: string) {
         return new Promise((resolve, rejects) => {
             this.nodeMail.sendMail({
-                from: "1295786542@qq.com",
+                from: process.env.email,
                 to,
                 subject,
                 html
