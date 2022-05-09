@@ -28,7 +28,7 @@ export class AccountService {
             uid,
             user_rule
         });
-        await this.account.insert(entity);
+        return await this.account.save(entity);
     }
 
     public equalsPassword(
@@ -37,5 +37,5 @@ export class AccountService {
     ) {
         return account.user_password === this.cryptoUtil.cryptoPassword(password)
     }
-    
+
 }
