@@ -18,10 +18,10 @@ export class RuleGuard implements CanActivate {
 //所有用户
 export const allUserGuard = RuleGuard.create(() => true)
 
-//超级管理员
+//管理员
 export const leaderGuard = RuleGuard.create(user => user.user_rule === 2);
 
-//管理员
+//会员
 export const adminGuard = RuleGuard.create(user => user.user_rule <= 1);
 
 //用户
