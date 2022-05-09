@@ -11,7 +11,7 @@ export class GetCode {
         message: "请输入4位验证码"
     })
     @ApiProperty({
-        description: "验证码"
+        description: "发送注册验证码时的验证码（笑）"
     })
     code: string
 }
