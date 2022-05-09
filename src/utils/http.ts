@@ -13,3 +13,9 @@ export const CodeError = Http.forbidden("验证码错误", 403)
 export const UserNotFound = Http.forbidden("找不到用户", 404)
 
 export const PasswordError = Http.forbidden("密码错误", 403)
+
+export const EmailExists = Http.forbidden("邮箱已被注册");
+
+
+export const forBiddenException = (msg: string) => Http.forbidden(msg);
+export const NotFoundException = (msg: string) => Http.forbidden(msg);
