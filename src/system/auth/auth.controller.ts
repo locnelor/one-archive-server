@@ -94,7 +94,7 @@ export class AuthController {
         @Body() body: GetCode,
         @Req() req: Request
     ) {
-        if (body.code.toLowerCase() !== req.session.code?.toLowerCase()) throw CodeError
+        // if (body.code.toLowerCase() !== req.session.code?.toLowerCase()) throw CodeError
         const entity = await this.accountService.account.findOne({
             user_email: body.email
         });
