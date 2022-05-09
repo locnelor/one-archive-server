@@ -8,7 +8,7 @@ declare module "express-session" {
   interface SessionData {
     code: string
     email: string
-    codeTime: number
+    regCode: string
   }
 }
 
