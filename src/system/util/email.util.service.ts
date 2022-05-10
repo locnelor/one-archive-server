@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import * as nodemailer from 'nodemailer'
+import { createTransport } from 'nodemailer'
 
 @Injectable()
 export class EmailUtilService {
-    private readonly nodeMail = nodemailer.createTransport({
+    private readonly nodeMail = createTransport({
         service: 'qq', //类型qq邮箱
         port: 465,//上文获取的port
         secure: true,//上文获取的secure

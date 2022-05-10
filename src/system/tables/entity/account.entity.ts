@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { Group } from "./group.entity";
 
 
 @Entity("account")
@@ -6,13 +7,17 @@ export class Account {
     @PrimaryColumn()
     uid: string
 
+    @OneToMany(() => Group, type => type.account)
+    groups: Group[]
+
     @Column({
         comment: "用户名"
     })
     user_name: string
 
     @Column({
-        comment: "邮箱"
+        comment: "邮箱",
+        unique: true
     })
     user_email: string
 
