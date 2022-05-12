@@ -1,16 +1,16 @@
 import { Global, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Account } from "./entity/account.entity";
-import { Group } from "./entity/group.entity";
+import { Project } from "./entity/project.entity";
 import { AccountService } from "./service/account.service";
-import { GroupService } from "./service/group.service";
+import { ProjectService } from "./service/project.service";
 
-const providers = [AccountService, GroupService]
+const providers = [AccountService, ProjectService]
 @Global()
 @Module({
     imports: [TypeOrmModule.forFeature([
         Account,
-        Group
+        Project
     ])],
     providers,
     exports: providers

@@ -27,7 +27,7 @@ public class Manager {
                 add(args[1], args[2], args[3]);
                 break;
             case "rep":
-                rep(args[1], args[2]);
+//                rep(args[1], args[2]);
                 break;
             case "new":
                 create(args[1], args[2], args[3]);
@@ -44,9 +44,12 @@ public class Manager {
         return true;
     }
 
-    public static void rep(String format, String path) {
-        Docx docx = new Docx(path);
-        StringBuilder str = docx.foreach(e -> {
+    public static void create(String startDate, String path, String outPath) {
+
+    }
+
+    public static void add(String format, String num, String path) {
+        StringBuilder str = new Docx(path).foreach(e -> {
             StringBuilder result = new StringBuilder();
             List<XWPFTableRow> rows = e.getRows();
             int len = rows.size();
@@ -73,7 +76,7 @@ public class Manager {
                     result.append(dateText)
                             .append(" 与目标日期 ")
                             .append(currentTime)
-                            .append("不符，已强制修改");
+                            .append("不符，已强制修改\n");
                     e.setText(dateCell, currentTime);
                 }
                 XWPFTableCell cell = row.getCell(1);
@@ -85,40 +88,24 @@ public class Manager {
                             .append(text)
                             .append(" 已强制修改为：")
                             .append(after)
-                            .append("");
+                            .append("\n");
                 }
                 e.setText(cell, after);
             }
-            return String.valueOf(result);
-        });
-        System.out.println(str);
-    }
+            //--------------
 
-    public static void create(String startDate, String path, String outPath) {
 
-    }
-
-    public static void add(String format, String num, String path) {
-        StringBuilder str = new Docx(path).foreach(e -> {
-            XWPFTableRow row = e.getCurrent();
-            SimpleDateFormat sdf = new SimpleDateFormat(format);
-            String date = row.getCell(0).getText();
-            if (!parse(date, sdf)) {
-                return "该文档日期格式不匹配\n";
-            }
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(sdf.parse(date));
             cal.add(Calendar.DATE, 1);
             int day = Integer.parseInt(num);
             try {
-                for (int i = 0; i < day; i++, cal.add(Calendar.DATE, 1)) {
+                for (i = 0; i < day; i++, cal.add(Calendar.DATE, 1)) {
                     e.add(sdf.format(cal.getTime()));
                 }
             } catch (XmlException | IOException xmlException) {
                 return "添加日期失败";
             }
             e.save();
-            return "添加成功";
+            return String.valueOf(result);
         });
         System.out.println(str);
     }

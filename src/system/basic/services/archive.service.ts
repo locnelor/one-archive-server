@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Account } from "src/system/tables/entity/account.entity";
-import { GroupService } from "src/system/tables/service/group.service";
+import { ProjectService } from "src/system/tables/service/project.service";
 import { PathUtilService } from "src/system/util/path.util.service";
 // import { Extract } from "unzip";
 import { zip } from "compressing"
@@ -10,7 +10,7 @@ import { exec } from "child_process"
 export class ArchiveService {
     constructor(
         private readonly pathUtil: PathUtilService,
-        private readonly GroupService: GroupService
+        private readonly projectService: ProjectService
     ) { }
 
     private async processExec(...args: string[]) {
@@ -24,29 +24,26 @@ export class ArchiveService {
             })
         })
     }
-    public add(format: string, num: number, path: string) {
-        return this.processExec("add", format, num + "", path);
+    public add(format: string, num: string, path: string) {
+        return this.processExec("add", format, num, path);
     }
-    private rep(format: string, path: string) {
-        return this.processExec("rep", format, path);
-    }
+    // public rep(format: string, path: string) {
+    //     return this.processExec("rep", format, path);
+    // }
 
     public async create(
         account: Account,
         buffer: Buffer,
-        name: string,
-        info: string,
-        format: string
+        format: string,
+        day: number
     ) {
-        const group = await this.GroupService.create(
+        const project = await this.projectService.create(
             account,
-            name,
             format,
-            info
+            day
         );
-        const path = this.pathUtil.getGroupDir(group.gid);
-        await zip.uncompress(buffer, path)
-        //执行java程序
-        return await this.rep(format, path)
+        const path = this.pathUtil.getGroupDir(project.gid);
+        await zip.uncompress(buffer, path);
+        return project
     }
 }
