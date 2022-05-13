@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Res, UploadedFile, UseGuards, UseIn
 import { AuthGuard } from "@nestjs/passport";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiOperation, ApiParam, ApiQuery } from "@nestjs/swagger";
-import { adminGuard } from "src/guard/rule.guard";
+import {  allUserGuard } from "src/guard/rule.guard";
 import { User } from "src/guard/user.decorator";
 import { NotFound, RejectCode } from "src/utils/http";
 import { Account } from "../tables/entity/account.entity";
@@ -15,7 +15,7 @@ import { Response } from "express";
 import { AddDto } from "./services/add.dto";
 
 @Controller("api/archive")
-@UseGuards(AuthGuard("jwt"), adminGuard)
+@UseGuards(AuthGuard("jwt"), allUserGuard)
 export class ArchiveController {
     constructor(
         private readonly archiveService: ArchiveService,

@@ -22,7 +22,7 @@ export const allUserGuard = RuleGuard.create(() => true)
 export const leaderGuard = RuleGuard.create(user => user.user_rule === 2);
 
 //会员
-export const adminGuard = RuleGuard.create(user => user.user_rule <= 1);
+export const adminGuard = RuleGuard.create(user => user.user_rule >= 1);
 
 //用户
-export const userGuard = RuleGuard.create(user => user.user_rule <= 0);
+export const userGuard = RuleGuard.create(user => user.user_rule >= 0);
