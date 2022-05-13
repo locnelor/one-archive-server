@@ -45,8 +45,8 @@ export class PathUtilService {
     private readonly root_path = join(process.cwd(), "public");
 
     //获取组文件目录
-    public getGroupDir(gid: number) {
-        return join(this.root_path, "groups", gid + "");
+    public getGroupDir(gid: string) {
+        return join(this.root_path, "groups", gid);
     }
     public readonly jar_path = join(process.cwd(), "java", "out", "artifacts", "program_jar", "program.jar")
 

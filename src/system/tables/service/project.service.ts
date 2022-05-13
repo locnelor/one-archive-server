@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { PathUtilService } from "src/system/util/path.util.service";
+import { CryptoUtilService } from "src/system/util/crypto.util.service";
 import { Repository } from "typeorm";
 import { Account } from "../entity/account.entity";
 import { Project } from "../entity/project.entity";
@@ -11,7 +11,7 @@ export class ProjectService {
     constructor(
         @InjectRepository(Project)
         public readonly project: Repository<Project>,
-        private readonly pathUtil: PathUtilService
+        private readonly cryptoUtil: CryptoUtilService
     ) { }
 
     public async create(
@@ -19,9 +19,12 @@ export class ProjectService {
         format: string,
         day
     ) {
+        const gid = this.cryptoUtil.createUid(account.uid);
+
         const entity = this.project.create({
             format,
-            day
+            day,
+            gid
         })
         entity.account = account;
         return await this.project.save(entity)

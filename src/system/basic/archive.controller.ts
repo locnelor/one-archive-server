@@ -48,7 +48,7 @@ export class ArchiveController {
     })
     async download(
         @User() user: Account,
-        @Param("gid") gid: number,
+        @Param("gid") gid: string,
         @Res() res: Response
     ) {
         const result = await this.projectService.project.findOne(gid, {

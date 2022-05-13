@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Account } from "./account.entity";
 
 
@@ -6,8 +6,8 @@ import { Account } from "./account.entity";
 export type projectStatus = "ready" | "running" | "error" | "success";
 @Entity("project")
 export class Project {
-    @PrimaryGeneratedColumn()
-    gid: number
+    @PrimaryColumn()
+    gid: string
 
     @ManyToOne(() => Account, type => type.groups)
     account: Account
