@@ -14,7 +14,7 @@ import { zip } from "compressing";
 import { Response } from "express";
 import { AddDto } from "./services/add.dto";
 
-@Controller("util/archive")
+@Controller("api/archive")
 @UseGuards(AuthGuard("jwt"), adminGuard)
 export class ArchiveController {
     constructor(
