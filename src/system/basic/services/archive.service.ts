@@ -43,7 +43,9 @@ export class ArchiveService {
             day
         );
         const path = this.pathUtil.getGroupDir(project.gid);
-        await zip.uncompress(buffer, path);
+        await zip.uncompress(buffer, path, {
+            zipFileNameEncoding: 'GBK'
+        });
         return project
     }
 }
