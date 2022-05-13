@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Res, UploadedFile, UseGuards, UseIn
 import { AuthGuard } from "@nestjs/passport";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiOperation, ApiParam, ApiQuery } from "@nestjs/swagger";
-import {  allUserGuard } from "src/guard/rule.guard";
+import { allUserGuard } from "src/guard/rule.guard";
 import { User } from "src/guard/user.decorator";
 import { NotFound, RejectCode } from "src/utils/http";
 import { Account } from "../tables/entity/account.entity";
@@ -69,7 +69,7 @@ export class ArchiveController {
         @User() user: Account
     ) {
         const buffer = file.buffer;
-        const name = file.name;
+        const name = file.originalname;
         const suffix = name.substring(name.lastIndexOf(".") + 1);
         if (suffix !== "zip") throw RejectCode
         return await this.archiveService.create(
